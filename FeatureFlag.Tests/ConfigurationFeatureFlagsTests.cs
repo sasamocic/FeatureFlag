@@ -109,6 +109,14 @@ public sealed class ConfigurationFeatureFlagsTests
     }
 
     [Fact]
+    public void IFeatureFlags_SectionName_matches_default_configuration_section()
+    {
+        var flags = new ConfigurationFeatureFlags(ConfigurationTestHelpers.FromJson("{}"));
+
+        Assert.Equal(ConfigurationFeatureFlags.DefaultSectionName, flags.SectionName);
+    }
+
+    [Fact]
     public void Constructor_throws_when_configuration_null()
     {
         var ex = Assert.Throws<ArgumentNullException>(() => new ConfigurationFeatureFlags(null!));

@@ -19,7 +19,7 @@ internal static class ConfigurationTestHelpers
     public static IConfiguration FromKeyValue(params KeyValuePair<string, string?>[] pairs)
     {
         var section = new Dictionary<string, string?>(StringComparer.Ordinal);
-        var prefix = ConfigurationFeatureFlags.SectionName + ":";
+        var prefix = ConfigurationFeatureFlags.DefaultSectionName + ":";
 
         foreach (var pair in pairs)
         {
@@ -29,7 +29,7 @@ internal static class ConfigurationTestHelpers
             section[pair.Key[prefix.Length..]] = pair.Value;
         }
 
-        var root = new Dictionary<string, object?> { [ConfigurationFeatureFlags.SectionName] = section };
+        var root = new Dictionary<string, object?> { [ConfigurationFeatureFlags.DefaultSectionName] = section };
         return FromJson(JsonSerializer.Serialize(root));
     }
 }

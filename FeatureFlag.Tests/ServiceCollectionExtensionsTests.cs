@@ -9,7 +9,7 @@ public sealed class ServiceCollectionExtensionsTests
     public void AddFeatureFlags_registers_IFeatureFlags_singleton_using_same_instance()
     {
         var config = ConfigurationTestHelpers.FromKeyValue(
-            new KeyValuePair<string, string?>($"{ConfigurationFeatureFlags.SectionName}:X", "true"));
+            new KeyValuePair<string, string?>($"{ConfigurationFeatureFlags.DefaultSectionName}:X", "true"));
 
         var services = new ServiceCollection();
         services.AddFeatureFlags(config);
@@ -19,6 +19,7 @@ public sealed class ServiceCollectionExtensionsTests
         var b = provider.GetRequiredService<IFeatureFlags>();
 
         Assert.Same(a, b);
+        Assert.Equal(ConfigurationFeatureFlags.DefaultSectionName, a.SectionName);
         Assert.True(a.IsEnabled("X"));
     }
 

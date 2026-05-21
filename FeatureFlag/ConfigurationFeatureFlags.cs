@@ -4,7 +4,7 @@ namespace FeatureFlag;
 
 public sealed class ConfigurationFeatureFlags : IFeatureFlags
 {
-    public const string SectionName = "FeatureFlags";
+    public const string DefaultSectionName = "FeatureFlags";
 
     private readonly IConfiguration _configuration;
 
@@ -13,6 +13,9 @@ public sealed class ConfigurationFeatureFlags : IFeatureFlags
         ArgumentNullException.ThrowIfNull(configuration);
         _configuration = configuration;
     }
+
+    /// <inheritdoc />
+    public string SectionName => DefaultSectionName;
 
     public bool IsEnabled(string featureName)
     {
